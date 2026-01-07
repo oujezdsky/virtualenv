@@ -1,7 +1,6 @@
 from __future__ import annotations
 
 import os
-from pathlib import Path
 
 from virtualenv.activation.via_template import ViaTemplateActivator
 
@@ -17,11 +16,8 @@ class XonshActivator(ViaTemplateActivator):
         return repr(str(value))
 
     def replacements(self, creator, dest_folder):  # noqa: ARG002
-        bin_dir = (
-            creator.bin_dir.relative_to(creator.dest)
-            if isinstance(creator.bin_dir, Path)
-            else str(creator.bin_dir.relative_to(creator.dest))
-        )
+        rel_bin_dir = creator.bin_dir.relative_to(creator.dest)
+        bin_dir = str(rel_bin_dir)
         tcl_lib = getattr(creator.interpreter, "tcl_lib", None)
         tk_lib = getattr(creator.interpreter, "tk_lib", None)
 
