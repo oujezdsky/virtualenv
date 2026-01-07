@@ -52,21 +52,27 @@ $VIRTUAL_ENV = __VIRTUAL_ENV__
 $VIRTUAL_ENV_PROMPT = __VIRTUAL_NAME__
 
 # --- TCL/TK Library ---
-if "TCL_LIBRARY" in ${...}:
-    $_OLD_TCL_LIBRARY = $TCL_LIBRARY
-$TCL_LIBRARY = __TCL_LIBRARY__
+if __TCL_LIBRARY__ != '':
+    if "TCL_LIBRARY" in ${...}:
+        $_OLD_TCL_LIBRARY = $TCL_LIBRARY
+    $TCL_LIBRARY = __TCL_LIBRARY__
 
-if "TK_LIBRARY" in ${...}:
-    $_OLD_TK_LIBRARY = $TK_LIBRARY
-$TK_LIBRARY = __TK_LIBRARY__
+if __TK_LIBRARY__ != '':
+    if "TK_LIBRARY" in ${...}:
+        $_OLD_TK_LIBRARY = $TK_LIBRARY
+    $TK_LIBRARY = __TK_LIBRARY__
 
 # --- PATH ---
 $_OLD_VIRTUAL_PATH = $PATH[:]
-_new_bin = $VIRTUAL_ENV + "/" + __BIN_NAME__
+_new_bin = $VIRTUAL_ENV + __PATH_SEP__ + __BIN_NAME__
 $PATH.add(_new_bin, front=True, replace=True)
 
+
 # --- PROMPT ---
-# TODO
+if "VIRTUAL_ENV_PROMPT" in ${...}:
+    $_OLD_VIRTUAL_ENV_PROMPT = $VIRTUAL_ENV_PROMPT
+$VIRTUAL_ENV_PROMPT = __VIRTUAL_NAME__
+
 
 # --- PYTHONHOME ---
 if "PYTHONHOME" in ${...}:
