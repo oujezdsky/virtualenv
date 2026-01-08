@@ -16,8 +16,8 @@ class XonshActivator(ViaTemplateActivator):
         return repr(str(value))
 
     def replacements(self, creator, dest_folder):  # noqa: ARG002
-        rel_bin_dir = creator.bin_dir.relative_to(creator.dest)
-        bin_dir = str(rel_bin_dir)
+        path_to_bin_folder = creator.bin_dir.relative_to(creator.dest)
+        bin_dir = str(path_to_bin_folder)
         tcl_lib = getattr(creator.interpreter, "tcl_lib", None)
         tk_lib = getattr(creator.interpreter, "tk_lib", None)
 
