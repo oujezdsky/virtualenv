@@ -1,6 +1,3 @@
-# This file must be used with "source bin/activate.xsh" *from xonsh*.
-# You cannot run it directly.
-
 env = __xonsh__.env
 aliases = __xonsh__.aliases
 
