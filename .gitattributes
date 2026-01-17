@@ -3,3 +3,4 @@
 *.fish text eol=lf
 *.csh text eol=lf
 *.sh text eol=lf
+*.xsh text eol=lf
