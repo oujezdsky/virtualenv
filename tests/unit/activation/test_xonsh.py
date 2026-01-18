@@ -69,6 +69,12 @@ def test_xonsh(activation_tester_class, activation_tester):
             redir = "2>nul" if IS_WIN else "2>/dev/null"
             self.pydoc_call = f"{str(self._creator.exe)!r} -m pydoc -w pydoc_test {redir}"
 
+        def env(self, tmp_path):
+            env = super().env(tmp_path)
+            if IS_WIN:
+                env.setdefault("ALLUSERSPROFILE", r"C:\ProgramData")
+            return env
+
         def print_prompt(self):
             return r'echo "($VIRTUAL_ENV_PROMPT) "'
 
