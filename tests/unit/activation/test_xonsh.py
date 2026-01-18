@@ -7,6 +7,7 @@ from shutil import which
 import pytest
 
 from virtualenv.activation import XonshActivator
+from virtualenv.info import IS_WIN
 
 
 @pytest.mark.parametrize(
@@ -30,7 +31,7 @@ def test_xonsh_tkinter_generation(tmp_path, tcl_lib, tk_lib, present):
     class MockCreator:
         def __init__(self, dest):
             self.dest = dest
-            self.bin_dir = dest / ("Scripts" if os.name == "nt" else "bin")
+            self.bin_dir = dest / ("Scripts" if IS_WIN else "bin")
             self.bin_dir.mkdir()
             self.interpreter = interpreter
             self.env_name = "my-env"
@@ -65,8 +66,8 @@ def test_xonsh(activation_tester_class, activation_tester):
                 "activate.xsh",
                 "xsh",
             )
-
-            self.pydoc_call = f"{str(self._creator.exe)!r} -m pydoc -w pydoc_test 2>/dev/null"
+            redir = "2>nul" if IS_WIN else "2>/dev/null"
+            self.pydoc_call = f"{str(self._creator.exe)!r} -m pydoc -w pydoc_test {redir}"
 
         def print_prompt(self):
             return r'echo "($VIRTUAL_ENV_PROMPT) "'
