@@ -73,8 +73,9 @@ if __TK_LIBRARY__ != '':
     $TK_LIBRARY = __TK_LIBRARY__
 
 # --- PATH ---
+import os
 $_OLD_VIRTUAL_PATH = $PATH[:]
-_new_bin = $VIRTUAL_ENV + __PATH_SEP__ + __BIN_NAME__
+_new_bin = os.path.join($VIRTUAL_ENV, __BIN_NAME__)
 $PATH.add(_new_bin, front=True, replace=True)
 
 # --- PROMPT ---
