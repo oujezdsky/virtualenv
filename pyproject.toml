@@ -171,7 +171,7 @@ markers = [
   "slow",
 ]
 timeout = 600
-addopts = "--showlocals --no-success-flaky-report"
+addopts = "--showlocals --no-success-flaky-report -p no:xonsh"
 env = [
   "PYTHONIOENCODING=utf-8",
 ]
