@@ -73,8 +73,8 @@ optional-dependencies.test = [
   "pytest-timeout>=2.1",
   "setuptools>=68",
   "time-machine>=2.10; platform_python_implementation=='CPython'",
-  "xonsh<0.20.0; python_version<'3.11'",
-  "xonsh>=0.20.0; python_version>='3.11'",
+  #"xonsh<0.20.0; python_version<'3.11'",
+  #"xonsh>=0.20.0; python_version>='3.11'",
 ]
 urls.Documentation = "https://virtualenv.pypa.io"
 urls.Homepage = "https://github.com/pypa/virtualenv"
