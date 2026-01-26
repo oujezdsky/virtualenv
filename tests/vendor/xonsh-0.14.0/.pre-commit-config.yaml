@@ -1,0 +1,55 @@
+default_language_version:
+    # force all unspecified python hooks to run python3
+    python: python3.10
+
+ci:
+  autofix_prs: false
+
+repos:
+  - repo: https://github.com/psf/black
+    rev: 23.3.0
+    hooks:
+    - id: black
+      entry: black xonsh xontrib tests xompletions
+      pass_filenames: false
+  - repo: https://github.com/charliermarsh/ruff-pre-commit
+    # Ruff version.
+    rev: 'v0.0.267'
+    hooks:
+      - id: ruff
+        args: [., --fix, --exit-non-zero-on-fix]
+        pass_filenames: false
+  - repo: https://github.com/pre-commit/mirrors-mypy
+    rev: 'v1.3.0'  # Use the sha / tag you want to point at
+    hooks:
+      - id: mypy
+        name: mypy xonsh
+        pass_filenames: false
+        entry: mypy xonsh
+        additional_dependencies:
+          - types-ujson
+      - id: mypy
+        name: mypy xontrib
+        pass_filenames: false
+        entry: mypy xontrib --namespace-packages --explicit-package-bases
+        additional_dependencies:
+          - types-ujson
+      - id: mypy
+        name: mypy xompletions
+        pass_filenames: false
+        entry: mypy xompletions --namespace-packages --explicit-package-bases
+        additional_dependencies:
+          - types-ujson
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.4.0
+    hooks:
+      - id: trailing-whitespace
+        exclude: |
+          (?x)^(
+              docs/_static/.+
+          )$
+      - id: check-case-conflict
+      - id: check-merge-conflict
+      - id: check-yaml
+      - id: check-toml
+      - id: check-added-large-files
