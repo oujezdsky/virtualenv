@@ -175,9 +175,6 @@ addopts = "--showlocals --no-success-flaky-report -p no:xonsh"
 env = [
   "PYTHONIOENCODING=utf-8",
 ]
-norecursedirs = [
-  "tests/vendor",
-]
 
 [tool.coverage]
 html.show_contexts = true
