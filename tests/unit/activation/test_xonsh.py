@@ -34,6 +34,7 @@ def test_xonsh_tkinter_generation(tmp_path, tcl_lib, tk_lib, present):
             self.bin_dir = dest / ("Scripts" if IS_WIN else "bin")
             self.bin_dir.mkdir()
             self.interpreter = interpreter
+            self.pyenv_cfg = {}
             self.env_name = "my-env"
 
     creator = MockCreator(tmp_path)
@@ -44,14 +45,26 @@ def test_xonsh_tkinter_generation(tmp_path, tcl_lib, tk_lib, present):
     content = (creator.bin_dir / "activate.xsh").read_text(encoding="utf-8")
 
     if present:
-        expected_tcl = f"$TCL_LIBRARY = {quoted_tcl_path}"
-        expected_tk = f"$TK_LIBRARY = {quoted_tk_path}"
+        # activation section
+        assert f"if {quoted_tcl_path} != '':" in content
+        assert f"if {quoted_tk_path} != '':" in content
 
-        assert expected_tcl in content
-        assert expected_tk in content
+        assert f"$TCL_LIBRARY = {quoted_tcl_path}" in content
+        assert f"$TK_LIBRARY = {quoted_tk_path}" in content
+
+        # backup of previous values (if present)
+        assert "$_OLD_TCL_LIBRARY = $TCL_LIBRARY" in content
+        assert "$_OLD_TK_LIBRARY = $TK_LIBRARY" in content
     else:
+        assert "if '' != '':" in content
         assert "$TCL_LIBRARY = ''" in content
         assert "$TK_LIBRARY = ''" in content
+
+    # deactivate section always contains restore/cleanup logic
+    assert 'if "_OLD_TCL_LIBRARY" in env:' in content
+    assert '$TCL_LIBRARY = env["_OLD_TCL_LIBRARY"]' in content
+    assert 'if "_OLD_TK_LIBRARY" in env:' in content
+    assert '$TK_LIBRARY = env["_OLD_TK_LIBRARY"]' in content
 
 
 def test_xonsh(activation_tester_class, activation_tester):
