@@ -1,5 +1,5 @@
 # xonsh 0.22.1
-xonsh @ git+https://github.com/oujezdsky/xonsh.git@20bacdad5540ba665a894bfc3f2027d25007cee5 ; python_version >= '3.11'
+xonsh @ git+https://github.com/oujezdsky/xonsh.git@ebce9566ed51470db9110df31551f545c6159745 ; python_version >= '3.11'
 # xonsh 0.19.9
 xonsh @ git+https://github.com/oujezdsky/xonsh.git@52a181b2acedfe4da8b7a18f63d5b69d1931064e ; python_version >= '3.9' and python_version < '3.11'
 # xonsh 0.14.0
